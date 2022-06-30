@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 #define LINE_LENGTH 38
-#define LINES_COUNT 5
+#define LINES_COUNT 6
 
 char* get_month_name(int number) {
     switch (number)
@@ -55,10 +55,10 @@ int get_first_wday_of_month(int current_mday, int current_wday){
     int result = current_wday;
     for (int i = current_mday; i > 1; i--)
     {
-        if(result > 1) {
+        if(result > 0) {
             result--;
         } else {
-            result = 7;
+            result = 6;
         }
     }
 
@@ -66,10 +66,13 @@ int get_first_wday_of_month(int current_mday, int current_wday){
 }
 
 void sprint_week(char* week_line, int start_mday, int start_wday, int current_mday, int day_count){
+    printf("%i %i\n", start_wday, start_mday);
+    start_wday = start_wday == 0 ? 7 : start_wday;
     sprintf(week_line, " ");
     for (int i = 0; i < 7; i++){
 
         int current_day = start_mday + i - start_wday + 1;
+        printf("%i\n", current_day);
         bool is_this_week = start_mday < current_mday && start_mday + 7 > current_mday;
         int offset =
                 current_day > current_mday && is_this_week
@@ -105,8 +108,8 @@ int main(void) {
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
-    int current_mday = tm.tm_mday;
-    int current_wday = tm.tm_wday;
+    int current_mday = 13;
+    int current_wday = 5;
     int day_count = get_month_day_count(tm.tm_mon + 1, tm.tm_year + 1900);
 
     char **calendar_lines = malloc(LINES_COUNT * sizeof(char *));
