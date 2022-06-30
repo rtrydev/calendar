@@ -4,7 +4,9 @@
 #include <stdbool.h>
 
 #define LINE_LENGTH 38
-#define LINES_COUNT 6
+#define LINES_COUNT 5
+#define COLORED_DAY_LENGTH 14
+#define REGULAR_DAY_LENGTH 3
 
 char* get_month_name(int number) {
     switch (number)
@@ -76,9 +78,9 @@ void sprint_week(char* week_line, int start_mday, int start_wday, int current_md
         bool is_this_week = start_mday < current_mday && start_mday + 7 > current_mday;
         int offset =
                 current_day > current_mday && is_this_week
-                    ? 14
+                    ? COLORED_DAY_LENGTH
                     : 0;
-        char *week_line_ptr = week_line + 3 * i + 1 + offset;
+        char *week_line_ptr = week_line + REGULAR_DAY_LENGTH * i + 1 + offset;
 
         if(start_mday + i < start_wday || current_day > day_count) {
             sprintf(week_line_ptr, "   ");
@@ -86,8 +88,8 @@ void sprint_week(char* week_line, int start_mday, int start_wday, int current_md
         }
         if (current_day == current_mday)
         {
-            sprintf(week_line_ptr, 
-            current_day < 10 
+            sprintf(week_line_ptr,
+            current_day < 10
             ? "\033[30m\033[47m %i\033[0m "
             : "\033[30m\033[47m%i\033[0m "
             , current_day);
@@ -131,7 +133,6 @@ int main(void) {
     }
 
     printf("       %s %d       \n", get_month_name(tm.tm_mon + 1), tm.tm_year + 1900);
-
     printf(" Mo Tu We Th Fr Sa Su \n");
 
     for (int i = 0; i < LINES_COUNT; i++) {
