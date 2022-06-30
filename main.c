@@ -128,7 +128,6 @@ int main(void) {
     }
 
     printf("       %s %d       \n", get_month_name(tm.tm_mon + 1), tm.tm_year + 1900);
-
     printf(" Mo Tu We Th Fr Sa Su \n");
 
     for (int i = 0; i < LINES_COUNT; i++) {
