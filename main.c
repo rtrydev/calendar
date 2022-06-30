@@ -83,8 +83,8 @@ void sprint_week(char* week_line, int start_mday, int start_wday, int current_md
         }
         if (current_day == current_mday)
         {
-            sprintf(week_line_ptr, 
-            current_day < 10 
+            sprintf(week_line_ptr,
+            current_day < 10
             ? "\033[30m\033[47m %i\033[0m "
             : "\033[30m\033[47m%i\033[0m "
             , current_day);
