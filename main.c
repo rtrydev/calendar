@@ -5,6 +5,8 @@
 
 #define LINE_LENGTH 38
 #define LINES_COUNT 5
+#define COLORED_DAY_LENGTH 14
+#define REGULAR_DAY_LENGTH 3
 
 char* get_month_name(int number) {
     switch (number)
@@ -73,9 +75,9 @@ void sprint_week(char* week_line, int start_mday, int start_wday, int current_md
         bool is_this_week = start_mday < current_mday && start_mday + 7 > current_mday;
         int offset =
                 current_day > current_mday && is_this_week
-                    ? 14
+                    ? COLORED_DAY_LENGTH
                     : 0;
-        char *week_line_ptr = week_line + 3 * i + 1 + offset;
+        char *week_line_ptr = week_line + REGULAR_DAY_LENGTH * i + 1 + offset;
 
         if(start_mday + i < start_wday || current_day > day_count) {
             sprintf(week_line_ptr, "   ");
